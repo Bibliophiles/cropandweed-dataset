@@ -201,7 +201,7 @@ python csv_to_yolo.py \
 | `--images-dir` | Path to directory containing all images | `/path/to/data/images` |
 | `--annotations-dir` | Path to CSV annotation files (use `CropAndWeed` base directory, not variant-specific) | `/path/to/data/bboxes/CropAndWeed` |
 | `--params-dir` | Path to image parameter files (metadata) | `/path/to/data/params` |
-| `--target-dataset` | Dataset variant to create (choices: `CropOrWeed2`, `Fine24`, `CropsOrWeed9`, `Course1`etc.) | `CropOrWeed2` |
+| `--target-dataset` | Dataset variant to create (choices: `CropOrWeed2`, `Fine24`, `CropsOrWeed9`, `Coarse1`etc.) | `CropOrWeed2` |
 | `--output-dir` | Directory where YOLO format labels will be saved | `./converted_annotations` |
 
 **Important:** Always use the base `CropAndWeed` directory for `--annotations-dir`, as it contains all annotations that are then filtered based on the `--target-dataset` parameter.
