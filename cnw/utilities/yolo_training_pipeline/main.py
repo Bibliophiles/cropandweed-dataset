@@ -8,6 +8,8 @@ import gc
 import torch
 from datetime import datetime
 import json
+import yaml
+
 
 # Add parent directory to Python path
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -70,10 +72,10 @@ def validate_dataset(data_path: str, logger: logging.Logger):
     image_files = [f for f in images_dir.rglob('*') if f.suffix.lower() in ['.jpg', '.jpeg', '.png', '.bmp']]
     label_files = [f for f in labels_dir.rglob('*.txt')]
     
-    logger.info(f"📊 Dataset validation:")
-    logger.info(f"   📁 Dataset path: {data_path.absolute()}")
-    logger.info(f"   🖼️  Images found: {len(image_files)}")
-    logger.info(f"   🏷️  Labels found: {len(label_files)}")
+    logger.info(f" Dataset validation:")
+    logger.info(f"    Dataset path: {data_path.absolute()}")
+    logger.info(f"    Images found: {len(image_files)}")
+    logger.info(f"    Labels found: {len(label_files)}")
     
     if len(image_files) == 0:
         raise ValueError(f"No images found in {images_dir}")
@@ -94,7 +96,6 @@ def validate_dataset(data_path: str, logger: logging.Logger):
     
     # Validate data.yaml
     try:
-        import yaml
         with open(data_yaml, 'r') as f:
             config = yaml.safe_load(f)
         
@@ -103,7 +104,7 @@ def validate_dataset(data_path: str, logger: logging.Logger):
             if key not in config:
                 raise ValueError(f"Missing required key in data.yaml: {key}")
         
-        logger.info(f"   📋 Classes: {config['nc']} ({config['names'][:3]}...)")
+        logger.info(f"     Classes: {config['nc']} ({config['names'][:3]}...)")
         
     except Exception as e:
         raise ValueError(f"Invalid data.yaml: {e}") from e
@@ -160,7 +161,7 @@ def run_nested_cv_pipeline(model_config, base_config, logger):
     
     # Generate visualizations using existing system
     try:
-        logger.info("📊 Generating visualizations...")
+        logger.info(" Generating visualizations...")
         
         # Use existing visualization with proper logging
         visualizer = PipelineVisualizer(
@@ -188,7 +189,7 @@ def run_single_model_pipeline(model_config, base_config, logger):
     """
     Runs a single model training and evaluation pipeline (to be implemented).
     """
-    logger.info("🚀 Starting single-model training and evaluation (not implemented yet)")
+    logger.info(" Starting single-model training and evaluation (not implemented yet)")
     logger.info("This feature will be implemented in a future update.")
     # Placeholder for single-model training logic
     # You would typically have a separate class or function here for a single train/val/test run
@@ -238,10 +239,10 @@ def main():
     # 6. Run training pipeline
     try:
         if args.nested_cv:
-            logger.info("🔄 Starting Nested Cross-Validation")
+            logger.info(" Starting Nested Cross-Validation")
             results = run_nested_cv_pipeline(model_config, base_config, logger)
         else:
-            logger.info("🔄 Starting Single Model Training")
+            logger.info(" Starting Single Model Training")
             results = run_single_model_pipeline(model_config, base_config, logger)
         
         logger.info("🎉 Pipeline completed successfully!")
@@ -250,7 +251,7 @@ def main():
         logger.info(" Final Summary:")
         if 'mean_test_score' in results:
             logger.info(f"    Performance: {results['mean_test_score']:.4f} ± {results.get('std_test_score', 0):.4f}")
-        logger.info(f"   📁 Results saved to: {base_config.output_dir}")
+        logger.info(f"     Results saved to: {base_config.output_dir}")
         
         return results
         

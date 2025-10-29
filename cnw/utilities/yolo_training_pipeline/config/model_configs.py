@@ -34,19 +34,19 @@ class ModelConfig:
 # Model configurations dictionary
 MODEL_CONFIGS = {
     # YOLOv5 variants
-    "yolov5n": ModelConfig(
-        name="yolov5n",
-        file_path="yolov5n.pt",
+    "yolov5nu": ModelConfig(
+        name="yolov5nu",
+        file_path="yolov5nu.pt",
         input_size=640,
         batch_size=32,
         description="YOLOv5 Nano - Fastest, smallest model"
     ),
-    "yolov5s": ModelConfig(
-        name="yolov5s",
-        file_path="yolov5s.pt", 
+     "yolov5su": ModelConfig(
+        name="yolov5su",
+        file_path="yolov5su.pt",
         input_size=640,
-        batch_size=16,
-        description="YOLOv5 Small - Good speed/accuracy balance"
+        batch_size=8,
+        description="YOLOv5 Small-U - Ultralytics optimized"
     ),
     "yolov5mu": ModelConfig(
         name="yolov5mu",
@@ -62,21 +62,7 @@ MODEL_CONFIGS = {
         batch_size=4,
         description="YOLOv5 Large - High accuracy"
     ),
-    "yolov5x": ModelConfig(
-        name="yolov5x",
-        file_path="yolov5x.pt",
-        input_size=640,
-        batch_size=2,
-        description="YOLOv5 Extra Large - Highest accuracy"
-    ),
-    "yolov5su": ModelConfig(
-        name="yolov5su",
-        file_path="yolov5su.pt",
-        input_size=640,
-        batch_size=8,
-        description="YOLOv5 Small-U - Ultralytics optimized"
-    ),
-    
+
     # YOLOv8 variants
     "yolov8n": ModelConfig(
         name="yolov8n",
@@ -105,13 +91,6 @@ MODEL_CONFIGS = {
         input_size=640,
         batch_size=4,
         description="YOLOv8 Large - Latest architecture, high accuracy"
-    ),
-    "yolov8x": ModelConfig(
-        name="yolov8x",
-        file_path="yolov8x.pt",
-        input_size=640,
-        batch_size=2,
-        description="YOLOv8 Extra Large - Latest architecture, highest accuracy"
     ),
 
     # YOLOv11 variants
