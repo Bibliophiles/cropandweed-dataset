@@ -180,16 +180,16 @@ cropandweed-dataset/
 Navigate to the utilities directory:
 
 ```bash
-cd cropandweed-dataset-main/cnw/utilities
+cd cropandweed-dataset/cnw/utilities
 ```
 
-Run the conversion script:
+Run the conversion script for each target-dataset:
 
 ```bash
 python csv_to_yolo.py \
-  --images-dir /home/anad0001/cropandweed-dataset-main/data/images \
-  --annotations-dir /home/anad0001/cropandweed-dataset-main/data/bboxes/CropAndWeed \
-  --params-dir /home/anad0001/cropandweed-dataset-main/data/params \
+  --images-dir /home/anad0001/cropandweed-dataset/data/images \
+  --annotations-dir /home/anad0001/cropandweed-dataset/data/bboxes/CropAndWeed \
+  --params-dir /home/anad0001/cropandweed-dataset/data/params \
   --target-dataset CropOrWeed2 \
   --output-dir ./converted_annotations
 ```
@@ -204,7 +204,7 @@ python csv_to_yolo.py \
 | `--target-dataset` | Dataset variant to create (choices: `CropOrWeed2`, `Fine24`, `CropsOrWeed9`, `Coarse1`etc.) | `CropOrWeed2` |
 | `--output-dir` | Directory where YOLO format labels will be saved | `./converted_annotations` |
 
-**Important:** Always use the base `CropAndWeed` directory for `--annotations-dir`, as it contains all annotations that are then filtered based on the `--target-dataset` parameter.
+**IMPORTANT:** Always use the base `CropAndWeed` directory for `--annotations-dir`, as it contains all annotations that are then filtered based on the `--target-dataset` parameter.
 
 **Output:**
 - Creates `converted_annotations/labels_CropOrWeed2/` with YOLO format `.txt` files
@@ -216,7 +216,7 @@ Run the dataset structure creation script:
 
 ```bash
 python dataset_structure.py \
-  --images_dir /home/anad0001/cropandweed-dataset-main/data/images \
+  --images_dir /home/anad0001/cropandweed-dataset/data/images \
   --labels_dir converted_annotations/labels_CropOrWeed2 \
   --output_dir ./pipeline_dataset_CropOrWeed2 \
   --dataset_name CropOrWeed2
@@ -260,7 +260,7 @@ From `model_configs.py`:
 
 | Model | Size | 
 |-------|------|
-| `yolov5nu` | Nano |
+| `yolov5nu` | Nano-U |
 | `yolov5su` | Small-U | 
 | `yolov5mu` | Medium-U | 
 | `yolov5lu` | Large-U | 
@@ -278,7 +278,7 @@ From `model_configs.py`:
 ### Navigate to Training Pipeline
 
 ```bash
-cd cropandweed-dataset-main/cnw/utilities/yolo_training_pipeline
+cd cropandweed-dataset/cnw/utilities/yolo_training_pipeline
 ```
 
 ### Check Available GPUs
@@ -315,7 +315,7 @@ tmux new -s yolo_v5
 
 # Inside the session:
 # 1. Navigate to pipeline directory
-cd cropandweed-dataset-main/cnw/utilities/yolo_training_pipeline
+cd cropandweed-dataset/cnw/utilities/yolo_training_pipeline
 
 # 2. Activate conda environment
 conda activate cnw_env
@@ -330,7 +330,7 @@ conda activate cnw_env
 ```bash
 python main.py \
   --model yolov5su \
-  --data_path /home/anad0001/cropandweed-dataset-main/cnw/utilities/pipeline_dataset_CropOrWeed2 \
+  --data_path /home/anad0001/cropandweed-dataset/cnw/utilities/pipeline_dataset_CropOrWeed2 \
   --gpu_ids "0,1" \
   --nested_cv \
   --n_trials 20 \
@@ -411,23 +411,23 @@ tmux new -s train_gpu67  # Uses GPU 6,7
 ```bash
 # Session 1: YOLOv5 on GPUs 0,1
 tmux new -s yolov5_train
-cd cropandweed-dataset-main/cnw/utilities/yolo_training_pipeline
+cd cropandweed-dataset/cnw/utilities/yolo_training_pipeline
 conda activate cnw_env
-python main.py --model yolov5su --data_path ./pipeline_dataset_CropOrWeed2 --gpu_ids "0,1" --nested_cv
+python main.py --model yolov5su --data_path ./pipeline_dataset_CropOrWeed2 --gpu_ids "0,1" --nested_cv --n_trials 20 --epochs 50 --n_folds 5 --n_outer_folds 5
 # Detach: Ctrl+b, d
 
 # Session 2: YOLOv8 on GPUs 2,3
 tmux new -s yolov8_train
-cd cropandweed-dataset-main/cnw/utilities/yolo_training_pipeline
+cd cropandweed-dataset/cnw/utilities/yolo_training_pipeline
 conda activate cnw_env
-python main.py --model yolov8s --data_path ./pipeline_dataset_CropOrWeed2 --gpu_ids "2,3" --nested_cv
+python main.py --model yolov8s --data_path ./pipeline_dataset_CropOrWeed2 --gpu_ids "2,3" --nested_cv --n_trials 20 --epochs 50 --n_folds 5 --n_outer_folds 5
 # Detach: Ctrl+b, d
 
 # Session 3: YOLO11 on GPUs 4,5
 tmux new -s yolo11_train
-cd cropandweed-dataset-main/cnw/utilities/yolo_training_pipeline
+cd cropandweed-dataset/cnw/utilities/yolo_training_pipeline
 conda activate cnw_env
-python main.py --model yolo11m --data_path ./pipeline_dataset_CropOrWeed2 --gpu_ids "4,5" --nested_cv
+python main.py --model yolo11s --data_path ./pipeline_dataset_CropOrWeed2 --gpu_ids "4,5" --nested_cv --n_trials 20 --epochs 50 --n_folds 5 --n_outer_folds 5
 # Detach: Ctrl+b, d
 ```
 
