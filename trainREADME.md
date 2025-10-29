@@ -504,7 +504,7 @@ delete the runs directory, unused models, and outputs, and clear temp files and 
 **Issue: Dataset Not Found**
 ```bash
 # Verify paths are absolute or relative to current directory
-ls -la /home/anad0001/cropandweed-dataset-main/cnw/utilities/pipeline_dataset_CropOrWeed2
+ls -la /home/anad0001/cropandweed-dataset/cnw/utilities/pipeline_dataset_CropOrWeed2
 ```
 
 **Issue: tmux Session Lost**
