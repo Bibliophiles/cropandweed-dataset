@@ -1,0 +1,21 @@
+\section{Execution Framework}
+\subsection{Command-Line Interface}
+
+The pipeline provides a user-friendly command-line interface for experiment configuration. Key parameters include model selection, dataset paths, cross-validation settings, optimization parameters, and hardware configuration.
+
+Example usage for comprehensive evaluation:
+\begin{lstlisting}[language=bash]
+python main.py --model yolov8s --data_path ./pipeline_dataset_Fine24 \
+    --gpu_ids "6,7" --nested_cv --n_trials 20 --epochs 50 \
+    --n_folds 5 --n_outer_folds 5
+\end{lstlisting}
+
+\subsection{Output Organization}
+
+The pipeline generates comprehensive outputs organized into three main categories:
+
+\begin{itemize}
+    \item \textbf{Logs}: Detailed training progress and system information
+    \item \textbf{Metrics}: Performance measurements and statistical analyses
+    \item \textbf{Visualizations}: Plots and reports for result interpretation
+\end{itemize}

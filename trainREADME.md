@@ -58,7 +58,7 @@ source ~/.bashrc
 
 ```bash
 # Create a new conda environment named 'cnw_env'
-conda create -n cnw_env python=3.9 -y
+conda create -n cnw_env python=3.10 -y
 
 # Activate the environment
 conda activate cnw_env
